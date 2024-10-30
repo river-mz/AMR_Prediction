@@ -1,0 +1,3 @@
+ciprofloxacin_resistance_xgboost_proba,sulfamethoxazole_resistance_xgboost_proba,levofloxacin_resistance_xgboost_proba
+0.203,0.271,0.084
+0.18,0.243,0.162

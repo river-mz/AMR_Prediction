@@ -1,0 +1,92 @@
+Index(['previous_antibiotic_exposure_cephalosporin',
+       'previous_antibiotic_exposure_carbapenem',
+       'previous_antibiotic_exposure_fluoroquinolone',
+       'previous_antibiotic_exposure_polymyxin',
+       'previous_antibiotic_exposure_aminoglycoside',
+       'previous_antibiotic_exposure_nitrofurantoin',
+       'previous_antibiotic_resistance_ciprofloxacin',
+       'previous_antibiotic_resistance_levofloxacin',
+       'previous_antibiotic_resistance_nitrofurantoin',
+       'previous_antibiotic_resistance_sulfamethoxazole', 'dept_ER',
+       'dept_ICU', 'dept_IP', 'dept_OP', 'dept_nan', 'Enterococcus_faecium',
+       'Staphylococcus_aureus', 'Klebsiella_pneumoniae',
+       'Acinetobacter_baumannii', 'Pseudomonas_aeruginosa', 'Enterobacter',
+       'organism_other', 'organism_NA', 'note_embedding_pca_0',
+       'note_embedding_pca_1', 'note_embedding_pca_2', 'note_embedding_pca_3',
+       'note_embedding_pca_4', 'note_embedding_pca_5', 'note_embedding_pca_6',
+       'note_embedding_pca_7', 'note_embedding_pca_8', 'note_embedding_pca_9',
+       'note_embedding_pca_10', 'note_embedding_pca_11',
+       'note_embedding_pca_12', 'note_embedding_pca_13',
+       'note_embedding_pca_14', 'note_embedding_pca_15',
+       'note_embedding_pca_16', 'note_embedding_pca_17',
+       'note_embedding_pca_18', 'note_embedding_pca_19',
+       'entity_present_pca_0', 'entity_present_pca_1', 'entity_present_pca_2',
+       'entity_present_pca_3', 'entity_present_pca_4', 'entity_present_pca_5',
+       'entity_present_pca_6', 'entity_present_pca_7', 'entity_present_pca_8',
+       'entity_present_pca_9', 'entity_present_pca_10',
+       'entity_present_pca_11', 'entity_present_pca_12',
+       'entity_present_pca_13', 'entity_present_pca_14',
+       'entity_present_pca_15', 'entity_present_pca_16',
+       'entity_present_pca_17', 'entity_present_pca_18',
+       'entity_present_pca_19'],
+      dtype='object')
+Training models for resistance_nitrofurantoin (1/4)...
+
+Results for resistance_nitrofurantoin: Logistic Regression
+Fold 1: {'AUROC': 0.692, 'AUPRC': 0.439, 'Sensitivity': 0.608, 'Specificity': 0.673, 'PPV': 0.351, 'F1 Score': 0.445}
+Fold 2: {'AUROC': 0.698, 'AUPRC': 0.452, 'Sensitivity': 0.612, 'Specificity': 0.687, 'PPV': 0.363, 'F1 Score': 0.456}
+Fold 3: {'AUROC': 0.697, 'AUPRC': 0.454, 'Sensitivity': 0.584, 'Specificity': 0.704, 'PPV': 0.364, 'F1 Score': 0.449}
+Fold 4: {'AUROC': 0.701, 'AUPRC': 0.459, 'Sensitivity': 0.618, 'Specificity': 0.678, 'PPV': 0.358, 'F1 Score': 0.454}
+Fold 5: {'AUROC': 0.7, 'AUPRC': 0.448, 'Sensitivity': 0.64, 'Specificity': 0.661, 'PPV': 0.355, 'F1 Score': 0.456}
+
+Results for resistance_nitrofurantoin: XGBoost
+Fold 1: {'AUROC': 0.694, 'AUPRC': 0.447, 'Sensitivity': 0.597, 'Specificity': 0.685, 'PPV': 0.355, 'F1 Score': 0.446}
+Fold 2: {'AUROC': 0.701, 'AUPRC': 0.463, 'Sensitivity': 0.643, 'Specificity': 0.661, 'PPV': 0.355, 'F1 Score': 0.458}
+Fold 3: {'AUROC': 0.698, 'AUPRC': 0.46, 'Sensitivity': 0.607, 'Specificity': 0.679, 'PPV': 0.355, 'F1 Score': 0.448}
+Fold 4: {'AUROC': 0.705, 'AUPRC': 0.467, 'Sensitivity': 0.587, 'Specificity': 0.714, 'PPV': 0.374, 'F1 Score': 0.457}
+Fold 5: {'AUROC': 0.703, 'AUPRC': 0.455, 'Sensitivity': 0.602, 'Specificity': 0.696, 'PPV': 0.366, 'F1 Score': 0.455}
+Training models for resistance_sulfamethoxazole (2/4)...
+
+Results for resistance_sulfamethoxazole: Logistic Regression
+Fold 1: {'AUROC': 0.619, 'AUPRC': 0.408, 'Sensitivity': 0.796, 'Specificity': 0.309, 'PPV': 0.279, 'F1 Score': 0.413}
+Fold 2: {'AUROC': 0.626, 'AUPRC': 0.413, 'Sensitivity': 0.749, 'Specificity': 0.378, 'PPV': 0.288, 'F1 Score': 0.416}
+Fold 3: {'AUROC': 0.62, 'AUPRC': 0.407, 'Sensitivity': 0.743, 'Specificity': 0.371, 'PPV': 0.284, 'F1 Score': 0.411}
+Fold 4: {'AUROC': 0.626, 'AUPRC': 0.412, 'Sensitivity': 0.801, 'Specificity': 0.307, 'PPV': 0.279, 'F1 Score': 0.414}
+Fold 5: {'AUROC': 0.62, 'AUPRC': 0.409, 'Sensitivity': 0.793, 'Specificity': 0.314, 'PPV': 0.279, 'F1 Score': 0.413}
+
+Results for resistance_sulfamethoxazole: XGBoost
+Fold 1: {'AUROC': 0.62, 'AUPRC': 0.412, 'Sensitivity': 0.725, 'Specificity': 0.402, 'PPV': 0.289, 'F1 Score': 0.414}
+Fold 2: {'AUROC': 0.625, 'AUPRC': 0.412, 'Sensitivity': 0.756, 'Specificity': 0.365, 'PPV': 0.285, 'F1 Score': 0.414}
+Fold 3: {'AUROC': 0.617, 'AUPRC': 0.409, 'Sensitivity': 0.814, 'Specificity': 0.274, 'PPV': 0.273, 'F1 Score': 0.409}
+Fold 4: {'AUROC': 0.629, 'AUPRC': 0.415, 'Sensitivity': 0.728, 'Specificity': 0.407, 'PPV': 0.292, 'F1 Score': 0.417}
+Fold 5: {'AUROC': 0.622, 'AUPRC': 0.413, 'Sensitivity': 0.762, 'Specificity': 0.353, 'PPV': 0.283, 'F1 Score': 0.413}
+Training models for resistance_ciprofloxacin (3/4)...
+
+Results for resistance_ciprofloxacin: Logistic Regression
+Fold 1: {'AUROC': 0.772, 'AUPRC': 0.529, 'Sensitivity': 0.609, 'Specificity': 0.784, 'PPV': 0.453, 'F1 Score': 0.52}
+Fold 2: {'AUROC': 0.775, 'AUPRC': 0.536, 'Sensitivity': 0.62, 'Specificity': 0.783, 'PPV': 0.456, 'F1 Score': 0.525}
+Fold 3: {'AUROC': 0.767, 'AUPRC': 0.523, 'Sensitivity': 0.666, 'Specificity': 0.725, 'PPV': 0.416, 'F1 Score': 0.512}
+Fold 4: {'AUROC': 0.771, 'AUPRC': 0.528, 'Sensitivity': 0.591, 'Specificity': 0.796, 'PPV': 0.459, 'F1 Score': 0.517}
+Fold 5: {'AUROC': 0.769, 'AUPRC': 0.526, 'Sensitivity': 0.615, 'Specificity': 0.774, 'PPV': 0.444, 'F1 Score': 0.516}
+
+Results for resistance_ciprofloxacin: XGBoost
+Fold 1: {'AUROC': 0.781, 'AUPRC': 0.552, 'Sensitivity': 0.633, 'Specificity': 0.774, 'PPV': 0.451, 'F1 Score': 0.527}
+Fold 2: {'AUROC': 0.782, 'AUPRC': 0.558, 'Sensitivity': 0.648, 'Specificity': 0.766, 'PPV': 0.448, 'F1 Score': 0.53}
+Fold 3: {'AUROC': 0.776, 'AUPRC': 0.549, 'Sensitivity': 0.641, 'Specificity': 0.755, 'PPV': 0.434, 'F1 Score': 0.518}
+Fold 4: {'AUROC': 0.778, 'AUPRC': 0.545, 'Sensitivity': 0.601, 'Specificity': 0.799, 'PPV': 0.468, 'F1 Score': 0.526}
+Fold 5: {'AUROC': 0.779, 'AUPRC': 0.55, 'Sensitivity': 0.625, 'Specificity': 0.779, 'PPV': 0.454, 'F1 Score': 0.526}
+Training models for resistance_levofloxacin (4/4)...
+
+Results for resistance_levofloxacin: Logistic Regression
+Fold 1: {'AUROC': 0.783, 'AUPRC': 0.551, 'Sensitivity': 0.599, 'Specificity': 0.813, 'PPV': 0.475, 'F1 Score': 0.53}
+Fold 2: {'AUROC': 0.781, 'AUPRC': 0.544, 'Sensitivity': 0.572, 'Specificity': 0.834, 'PPV': 0.493, 'F1 Score': 0.53}
+Fold 3: {'AUROC': 0.781, 'AUPRC': 0.531, 'Sensitivity': 0.63, 'Specificity': 0.779, 'PPV': 0.447, 'F1 Score': 0.523}
+Fold 4: {'AUROC': 0.775, 'AUPRC': 0.539, 'Sensitivity': 0.591, 'Specificity': 0.807, 'PPV': 0.465, 'F1 Score': 0.52}
+Fold 5: {'AUROC': 0.778, 'AUPRC': 0.539, 'Sensitivity': 0.611, 'Specificity': 0.795, 'PPV': 0.458, 'F1 Score': 0.524}
+
+Results for resistance_levofloxacin: XGBoost
+Fold 1: {'AUROC': 0.785, 'AUPRC': 0.562, 'Sensitivity': 0.552, 'Specificity': 0.851, 'PPV': 0.512, 'F1 Score': 0.531}
+Fold 2: {'AUROC': 0.784, 'AUPRC': 0.552, 'Sensitivity': 0.572, 'Specificity': 0.83, 'PPV': 0.489, 'F1 Score': 0.527}
+Fold 3: {'AUROC': 0.784, 'AUPRC': 0.546, 'Sensitivity': 0.598, 'Specificity': 0.807, 'PPV': 0.467, 'F1 Score': 0.524}
+Fold 4: {'AUROC': 0.781, 'AUPRC': 0.547, 'Sensitivity': 0.631, 'Specificity': 0.779, 'PPV': 0.447, 'F1 Score': 0.523}
+Fold 5: {'AUROC': 0.783, 'AUPRC': 0.553, 'Sensitivity': 0.572, 'Specificity': 0.833, 'PPV': 0.492, 'F1 Score': 0.529}

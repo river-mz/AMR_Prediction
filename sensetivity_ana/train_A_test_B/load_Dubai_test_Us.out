@@ -1,0 +1,45 @@
+Index(['age', 'race', 'veteran', 'gender', 'BMI',
+       'previous_antibiotic_exposure_cephalosporin',
+       'previous_antibiotic_exposure_carbapenem',
+       'previous_antibiotic_exposure_fluoroquinolone',
+       'previous_antibiotic_exposure_polymyxin',
+       'previous_antibiotic_exposure_aminoglycoside',
+       'previous_antibiotic_exposure_nitrofurantoin',
+       'previous_antibiotic_resistance_ciprofloxacin',
+       'previous_antibiotic_resistance_levofloxacin',
+       'previous_antibiotic_resistance_nitrofurantoin',
+       'previous_antibiotic_resistance_sulfamethoxazole', 'dept_ER',
+       'dept_ICU', 'dept_IP', 'dept_OP', 'dept_nan', 'Enterococcus_faecium',
+       'Staphylococcus_aureus', 'Klebsiella_pneumoniae',
+       'Acinetobacter_baumannii', 'Pseudomonas_aeruginosa', 'Enterobacter',
+       'organism_other', 'organism_NA', 'note_embedding_pca_0',
+       'note_embedding_pca_1', 'note_embedding_pca_2', 'note_embedding_pca_3',
+       'note_embedding_pca_4', 'note_embedding_pca_5', 'note_embedding_pca_6',
+       'note_embedding_pca_7', 'note_embedding_pca_8', 'note_embedding_pca_9',
+       'note_embedding_pca_10', 'note_embedding_pca_11',
+       'note_embedding_pca_12', 'note_embedding_pca_13',
+       'note_embedding_pca_14', 'note_embedding_pca_15',
+       'note_embedding_pca_16', 'note_embedding_pca_17',
+       'note_embedding_pca_18', 'note_embedding_pca_19',
+       'entity_present_pca_0', 'entity_present_pca_1', 'entity_present_pca_2',
+       'entity_present_pca_3', 'entity_present_pca_4', 'entity_present_pca_5',
+       'entity_present_pca_6', 'entity_present_pca_7', 'entity_present_pca_8',
+       'entity_present_pca_9', 'entity_present_pca_10',
+       'entity_present_pca_11', 'entity_present_pca_12',
+       'entity_present_pca_13', 'entity_present_pca_14',
+       'entity_present_pca_15', 'entity_present_pca_16',
+       'entity_present_pca_17', 'entity_present_pca_18',
+       'entity_present_pca_19'],
+      dtype='object')
+Testing models for resistance_nitrofurantoin (1/4)...
+Results for resistance_nitrofurantoin:
+Logistic Regression: {'AUROC': 0.592, 'AUPRC': 0.285, 'Sensitivity': 0.79, 'Specificity': 0.31, 'PPV': 0.242, 'F1 Score': 0.37}
+XGBoost: {'AUROC': 0.567, 'AUPRC': 0.302, 'Sensitivity': 0.999, 'Specificity': 0.002, 'PPV': 0.218, 'F1 Score': 0.358}
+Testing models for resistance_ciprofloxacin (3/4)...
+Results for resistance_ciprofloxacin:
+Logistic Regression: {'AUROC': 0.703, 'AUPRC': 0.44, 'Sensitivity': 0.618, 'Specificity': 0.671, 'PPV': 0.336, 'F1 Score': 0.435}
+XGBoost: {'AUROC': 0.733, 'AUPRC': 0.481, 'Sensitivity': 0.622, 'Specificity': 0.722, 'PPV': 0.376, 'F1 Score': 0.469}
+Testing models for resistance_levofloxacin (4/4)...
+Results for resistance_levofloxacin:
+Logistic Regression: {'AUROC': 0.587, 'AUPRC': 0.344, 'Sensitivity': 0.942, 'Specificity': 0.098, 'PPV': 0.228, 'F1 Score': 0.368}
+XGBoost: {'AUROC': 0.687, 'AUPRC': 0.459, 'Sensitivity': 0.534, 'Specificity': 0.757, 'PPV': 0.383, 'F1 Score': 0.446}
