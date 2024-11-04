@@ -45,7 +45,7 @@ nlp_bc5cdr = spacy.load("en_ner_bc5cdr_md")
 nlp_bionlp13cg = spacy.load("en_ner_bionlp13cg_md")
 
 
-path = 'dubai_NER_5atb_merge_history_and_notes.csv'
+path = 'country1_NER_5atb_merge_history_and_notes.csv'
 
 output_path = '/ibex/project/c2205/AMR_dataset_peijun/Saudi/MRSA/anti_pt_meta_cmb_notes_ner_ebd.csv'
 

@@ -2,13 +2,13 @@
 
 
 ### Size of Training Data
-- figure1: models trained with different size of dubai dataset
+- figure1: models trained with different size of country1 dataset
 
-![training models with different size of dubai dataset](./figure/dubai_ratio.png)
+![training models with different size of country1 dataset](./figure/country1_ratio.png)
 
 <!-- <figure>
-    <img src="./figure/dubai_ratio.png" alt="training models with different size of dubai dataset">
-    <figcaption>figure1: models trained with different size of dubai dataset</figcaption>
+    <img src="./figure/country1_ratio.png" alt="training models with different size of country1 dataset">
+    <figcaption>figure1: models trained with different size of country1 dataset</figcaption>
 </figure> -->
 
 
@@ -18,8 +18,8 @@
 
 
 
-- figure3: models trained with 20% of US dataset aned different size of Dubai dataset
-![training models with different size of us and dubai dataset](./figure/20%_us_differ_dubai_ratio.png)
+- figure3: models trained with 20% of US dataset aned different size of country1 dataset
+![training models with different size of us and country1 dataset](./figure/20%_us_differ_country1_ratio.png)
 
 
 ### Modality

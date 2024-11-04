@@ -20,7 +20,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import auc
 
 
-model_dir = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours_Dubai_Oct_5'
+model_dir = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours_country1_Oct_5'
 
 use_cols = ['age', 'race', 'veteran', 'gender', 'BMI', 'previous_antibiotic_exposure_cephalosporin',
        'previous_antibiotic_exposure_carbapenem',

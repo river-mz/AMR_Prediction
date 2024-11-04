@@ -60,7 +60,7 @@ final_df = pd.read_csv('/ibex/project/c2205/AMR_dataset_peijun/integrate/final_n
                         header=0,
                         usecols=use_cols)
 
-final_df = final_df[final_df['source']=='DUBAI']
+final_df = final_df[final_df['source']=='country1']
 features = final_df.drop(columns=['source', 'resistance_nitrofurantoin', 'resistance_sulfamethoxazole', 'resistance_ciprofloxacin', 'resistance_levofloxacin'])
 print(features.columns)
 

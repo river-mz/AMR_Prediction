@@ -19,12 +19,12 @@ from skorch import NeuralNetClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import auc
 
-output_fig_dir = '/home/linp0a/AMR_prediction_pipeline/loss_auc_curves_Ours_Dubai_Oct_5/'
+output_fig_dir = '/home/linp0a/AMR_prediction_pipeline/loss_auc_curves_Ours_country1_Oct_5/'
 if not os.path.exists(output_fig_dir):
     os.makedirs(output_fig_dir)  # 如果目录不存在，自动创建
 
 
-output_dir = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours_Dubai_Oct_5'
+output_dir = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours_country1_Oct_5'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)  # 如果目录不存在，自动创建
 
@@ -68,7 +68,7 @@ final_df = pd.read_csv('/ibex/project/c2205/AMR_dataset_peijun/integrate/final_n
                         header=0,
                         usecols=use_cols)
 
-final_df = final_df[final_df['source']=='DUBAI']
+final_df = final_df[final_df['source']=='country1']
 features = final_df.drop(columns=['source', 'resistance_nitrofurantoin', 'resistance_sulfamethoxazole', 'resistance_ciprofloxacin', 'resistance_levofloxacin'])
 print(features.columns)
 

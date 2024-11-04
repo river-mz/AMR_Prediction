@@ -2,7 +2,7 @@
 
 ### a. number of data
 
-- use our features on Dubai dataset (30k)
+- use our features on country1 dataset (30k)
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/bff5c4c9-d3a2-4920-8565-8489189f433d/6b1c69fa-400e-40ac-bfa3-aa6df89912bf/image.png)
 
@@ -12,11 +12,11 @@
 
 ### b. diversity of data source:
 
-- 20% US with different size of dubai:
+- 20% US with different size of country1:
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/bff5c4c9-d3a2-4920-8565-8489189f433d/43faa3b7-6fcc-4f33-b64a-167c087d80b8/image.png)
 
-(20% US + 100% Dubai: 1/2 US + 1/2 Dubai)
+(20% US + 100% country1: 1/2 US + 1/2 country1)
 
 ### c. modality:
 
@@ -28,7 +28,7 @@
 
 ## 3. train on one dataset, test on another:
 
-- train on dubai, test on US
+- train on country1, test on US
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/bff5c4c9-d3a2-4920-8565-8489189f433d/791d5bba-8e66-47e1-900b-e4ed03310d1d/image.png)
 
@@ -36,7 +36,7 @@
 
 nitroflurantoin is generally harder to predict 
 
-- train on US, test on Dubai
+- train on US, test on country1
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/bff5c4c9-d3a2-4920-8565-8489189f433d/6d9d4608-a130-4bba-a871-29c5f74e5054/image.png)
 
@@ -44,7 +44,7 @@ nitroflurantoin is generally harder to predict
 
 ## 4. Oversampling:
 
-conduct oversampling on the whole dataset(US+Dubai)
+conduct oversampling on the whole dataset(US+country1)
 
 ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/bff5c4c9-d3a2-4920-8565-8489189f433d/836f602b-0f33-4190-89dd-b06f15312deb/image.png)
 

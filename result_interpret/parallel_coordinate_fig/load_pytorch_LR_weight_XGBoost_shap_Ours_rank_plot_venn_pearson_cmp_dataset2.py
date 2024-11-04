@@ -55,7 +55,7 @@ use_cols = ['age', 'race', 'veteran', 'gender', 'BMI', 'previous_antibiotic_expo
 final_df = pd.read_csv('/ibex/project/c2205/AMR_dataset_peijun/integrate/final_note_embeddings_20_organism_name_specimen_type_all_ner_present20_2.csv', 
                         usecols=use_cols)
 us_df = final_df[final_df['source'] == 'US']
-dubai_df = final_df[final_df['source'] == 'DUBAI']
+country1_df = final_df[final_df['source'] == 'country1']
 
 # 清理和转换 BMI
 final_df['BMI'] = pd.to_numeric(final_df['BMI'].replace('12,073.88', np.nan), errors='coerce').fillna(-1)
@@ -81,9 +81,9 @@ model_dir_us = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours
 lr_models_us = {prescription: torch.load(os.path.join(model_dir_us, f'lr_model_{prescription}.pth')) for prescription in prescription_columns}
 xgb_models_us = {prescription: pickle.load(open(os.path.join(model_dir_us, f'xgb_model_{prescription}.pkl'), 'rb')) for prescription in prescription_columns}
 
-model_dir_dubai = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours_Dubai_Oct_5'
-lr_models_dubai = {prescription: torch.load(os.path.join(model_dir_dubai, f'lr_model_{prescription}.pth')) for prescription in prescription_columns}
-xgb_models_dubai = {prescription: pickle.load(open(os.path.join(model_dir_dubai, f'xgb_model_{prescription}.pkl'), 'rb')) for prescription in prescription_columns}
+model_dir_country1 = '/home/linp0a/AMR_prediction_pipeline/model_prediction/model_Ours_country1_Oct_5'
+lr_models_country1 = {prescription: torch.load(os.path.join(model_dir_country1, f'lr_model_{prescription}.pth')) for prescription in prescription_columns}
+xgb_models_country1 = {prescription: pickle.load(open(os.path.join(model_dir_country1, f'xgb_model_{prescription}.pkl'), 'rb')) for prescription in prescription_columns}
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -93,7 +93,7 @@ def calculate_lr_feature_importance(prescription, data):
     if data == 'US': 
         lr_model = lr_models_us[prescription].to(device)
     else:
-        lr_model = lr_models_dubai[prescription].to(device)
+        lr_model = lr_models_country1[prescription].to(device)
 
     lr_model.eval()
     X = final_df.drop(columns=['source', 'resistance_nitrofurantoin', 'resistance_sulfamethoxazole', 'resistance_ciprofloxacin', 'resistance_levofloxacin'])
@@ -144,7 +144,7 @@ def calculate_xgb_shap_values(prescription, data):
     if data == 'US': 
         xgb_model = xgb_models_us[prescription]
     else:
-        xgb_model = xgb_models_dubai[prescription]
+        xgb_model = xgb_models_country1[prescription]
 
     # XGBoost SHAP calculation
     explainer_xgb = shap.TreeExplainer(xgb_model)
@@ -180,23 +180,23 @@ def calculate_xgb_shap_values(prescription, data):
     return shap_df_ori  # 返回 DataFrame 以用于并行坐标图
 
 
-def plot_parallel_coordinates1(us_df, dubai_df, prescription, correlation, p_value, model):
+def plot_parallel_coordinates1(us_df, country1_df, prescription, correlation, p_value, model):
     # 合并两个DataFrame，根据Feature列匹配
     # 先对lr_df 和shap_df 进行升序排列
     us_df = us_df.sort_values(by='US Rank', ascending=True)
-    dubai_df = dubai_df.sort_values(by='Dubai Rank', ascending=True)
+    country1_df = country1_df.sort_values(by='country1 Rank', ascending=True)
     
-    merged_df = pd.merge(us_df[['Feature', 'US Rank']], dubai_df[['Feature', 'Dubai Rank']], on='Feature', how='inner')
+    merged_df = pd.merge(us_df[['Feature', 'US Rank']], country1_df[['Feature', 'country1 Rank']], on='Feature', how='inner')
     # merged_df = merged_df
     print(merged_df)
     # 为并行坐标图添加一列以区分Logistic Regression和XGBoost
-    merged_df['Data'] = 'US vs Dubai'
+    merged_df['Data'] = 'US vs country1'
 
     # 创建并行坐标图
     fig, ax = plt.subplots(figsize=(12, 8))
 
     # 绘制并行坐标图
-    parallel_coordinates(merged_df, 'Data', cols=['US Rank', 'Dubai Rank'], color=('#556270',), alpha=0.5, linestyle='--')
+    parallel_coordinates(merged_df, 'Data', cols=['US Rank', 'country1 Rank'], color=('#556270',), alpha=0.5, linestyle='--')
 
     # 美化图形
     plt.title(f"Parallel Coordinates Plot for {prescription} {model}", fontsize=16, pad=20)
@@ -208,14 +208,14 @@ def plot_parallel_coordinates1(us_df, dubai_df, prescription, correlation, p_val
 
     # 在左右两个y轴上分别标出每个模型对应的特征名
     us_features = us_df['Feature'].tolist()
-    dubai_features = dubai_df['Feature'].tolist()
+    country1_features = country1_df['Feature'].tolist()
 
     # 在左侧（LR）添加特征名，位置向右偏移
     for i, feature in enumerate(us_features):
         ax.text(-0.15, i + 1, feature, horizontalalignment='right', fontsize=9, color='blue')
 
     # 在右侧（XGB）添加特征名，位置向左偏移
-    for i, feature in enumerate(dubai_features):
+    for i, feature in enumerate(country1_features):
         ax.text(1.15, i + 1, feature, horizontalalignment='left', fontsize=9, color='green')
 
     # 限制y轴范围
@@ -240,45 +240,45 @@ def plot_parallel_coordinates1(us_df, dubai_df, prescription, correlation, p_val
 
 
 
-def plot_venn_diagram(df_us, df_dubai, prescription, model):
+def plot_venn_diagram(df_us, df_country1, prescription, model):
     # 提取特征集合
     us_features = set(df_us['Feature'])
-    dubai_features = set(df_dubai['Feature'])
+    country1_features = set(df_country1['Feature'])
 
     # 创建Venn图
     plt.figure(figsize=(8, 6))
-    venn = venn2([us_features, dubai_features], ('US', 'Dubai'))
+    venn = venn2([us_features, country1_features], ('US', 'country1'))
 
     # 获取Venn图的区域
     us_circle = venn.get_label_by_id('10')  # 仅在LR中的特征
-    dubai_circle = venn.get_label_by_id('01')  # 仅在XGBoost中的特征
+    country1_circle = venn.get_label_by_id('01')  # 仅在XGBoost中的特征
     overlap_circle = venn.get_label_by_id('11')  # 两者共有的特征
 
     # 在每个区域中添加特征
-    us_only = us_features - dubai_features
-    dubai_only = dubai_features - us_features
-    overlap = us_features & dubai_features
+    us_only = us_features - country1_features
+    country1_only = country1_features - us_features
+    overlap = us_features & country1_features
 
     # 标注LR特征
     if us_only:
         us_circle.set_text('\n'.join(us_only))
-    if dubai_only:
-        dubai_circle.set_text('\n'.join(dubai_only))
+    if country1_only:
+        country1_circle.set_text('\n'.join(country1_only))
     if overlap:
         overlap_circle.set_text('\n'.join(overlap))
 
     plt.title(f'Venn Diagram of Features for {model} {prescription}', fontsize=16)
-    plt.savefig(os.path.join(output_dir, f'{model}_venn_diagram_{prescription} in US vs Dubai.png'))
+    plt.savefig(os.path.join(output_dir, f'{model}_venn_diagram_{prescription} in US vs country1.png'))
     plt.close()
     print(f'Venn diagram for {prescription} saved.')
 
 # to fix the column name
-def calculate_spearman_correlation(us_df, dubai_df, prescription):
+def calculate_spearman_correlation(us_df, country1_df, prescription):
     # 合并两个 DataFrame
-    merged_df = pd.merge(us_df[['Feature', 'US Rank']], dubai_df[['Feature', 'Dubai Rank']], on='Feature', how='inner')
+    merged_df = pd.merge(us_df[['Feature', 'US Rank']], country1_df[['Feature', 'country1 Rank']], on='Feature', how='inner')
 
     # 计算Spearman相关性
-    correlation, p_value = spearmanr(merged_df['US Rank'], merged_df['Dubai Rank'])
+    correlation, p_value = spearmanr(merged_df['US Rank'], merged_df['country1 Rank'])
     
     print(f'Spearman correlation for {prescription}: {correlation}, p-value: {p_value}')
     return correlation, p_value
@@ -290,16 +290,16 @@ if __name__ == '__main__':
 
         # 计算Logistic Regression的特征重要性
         us_lr_df = calculate_lr_feature_importance(prescription, 'US').rename(columns = {'Rank': 'US Rank'})
-        dubai_lr_df = calculate_lr_feature_importance(prescription, 'Dubai').rename(columns = {'Rank': 'Dubai Rank'})
-        plot_venn_diagram(us_lr_df[:20], dubai_lr_df[:20], prescription, 'LR')
-        correlation, p_value = calculate_spearman_correlation(us_lr_df, dubai_lr_df, prescription)
-        plot_parallel_coordinates1(us_lr_df[:20], dubai_lr_df[:20], prescription, correlation, p_value, 'LR')
+        country1_lr_df = calculate_lr_feature_importance(prescription, 'country1').rename(columns = {'Rank': 'country1 Rank'})
+        plot_venn_diagram(us_lr_df[:20], country1_lr_df[:20], prescription, 'LR')
+        correlation, p_value = calculate_spearman_correlation(us_lr_df, country1_lr_df, prescription)
+        plot_parallel_coordinates1(us_lr_df[:20], country1_lr_df[:20], prescription, correlation, p_value, 'LR')
 
 
         # 计算XGBoost的SHAP值
         us_xgb_df = calculate_xgb_shap_values(prescription, 'US').rename(columns = {'Rank': 'US Rank'})
-        dubai_xgb_df = calculate_xgb_shap_values(prescription, 'Dubai').rename(columns = {'Rank': 'Dubai Rank'})
-        plot_venn_diagram(us_xgb_df[:20], dubai_xgb_df[:20], prescription, 'XGB')
+        country1_xgb_df = calculate_xgb_shap_values(prescription, 'country1').rename(columns = {'Rank': 'country1 Rank'})
+        plot_venn_diagram(us_xgb_df[:20], country1_xgb_df[:20], prescription, 'XGB')
         # 绘制并保存Parallel Coordinates Plot
-        correlation, p_value = calculate_spearman_correlation(us_xgb_df, dubai_xgb_df, prescription)
-        plot_parallel_coordinates1(us_xgb_df[:20], dubai_xgb_df[:20], prescription, correlation, p_value, 'XGB')
+        correlation, p_value = calculate_spearman_correlation(us_xgb_df, country1_xgb_df, prescription)
+        plot_parallel_coordinates1(us_xgb_df[:20], country1_xgb_df[:20], prescription, correlation, p_value, 'XGB')

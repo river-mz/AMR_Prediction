@@ -18,7 +18,7 @@
 | resistance_levofloxacin | 115925 | 25607 | 22.09% |
 
 
-### Dubai Resistance Data
+### country1 Resistance Data
 
 | Label | Non-empty Count | Resistance Count | Resistance Ratio |
 | --- | --- | --- | --- |

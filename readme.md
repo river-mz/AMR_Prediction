@@ -7,15 +7,15 @@ RiAMR is a machine learning based robust and interpretable antimicrobial resista
 
 
 ## Data: 
-The data used to train and test our models sources from 2 dataset. The first one is AMR-UTI dataset from US (https://physionet.org/content/antimicrobial-resistance-uti/1.0.0/) and another is collected from Dubai. All the data was stored under /ibex/project/c2205/AMR_dataset_peijun/ .
+The data used to train and test our models sources from 2 dataset. The first one is AMR-UTI dataset from US (https://physionet.org/content/antimicrobial-resistance-uti/1.0.0/) and another is collected from country1. All the data was stored under /ibex/project/c2205/AMR_dataset_peijun/ .
 
 - US-UTI: this dataset includes 116,902 EHR and coresponding AMR records. The antibiotics include: nitrofurantoin, sulfamethoxazole, ciprofloxacin, levofloxacin. The dataset without preprocessing is stored under /ibex/project/c2205/AMR_dataset_peijun/US-UTI/original_dataset
 
-- Dubai: this dataset includes 34,488 EHR and coresponding AMR records. The antibiotics include: nitrofurantoin,  ciprofloxacin, levofloxacin. The dataset without preprocessing is stored under /ibex/project/c2205/AMR_dataset_peijun/Dubai/ .
+- country1: this dataset includes 34,488 EHR and coresponding AMR records. The antibiotics include: nitrofurantoin,  ciprofloxacin, levofloxacin. The dataset without preprocessing is stored under /ibex/project/c2205/AMR_dataset_peijun/country1/ .
 
-    - The AMR data are stored in /ibex/project/c2205/AMR_dataset_peijun/Dubai/microculture folder. In the folder, there are  MicroCultureData from 2017 to 2021. All the MicroCultureData were merged into a csv file: integrated_microculture.csv
+    - The AMR data are stored in /ibex/project/c2205/AMR_dataset_peijun/country1/microculture folder. In the folder, there are  MicroCultureData from 2017 to 2021. All the MicroCultureData were merged into a csv file: integrated_microculture.csv
 
-    - The EHR data are stored in GeneralData.csv, AntibioticsOP.csv and AntibioticsIP.csv under /ibex/project/c2205/AMR_dataset_peijun/Dubai/ folder.
+    - The EHR data are stored in GeneralData.csv, AntibioticsOP.csv and AntibioticsIP.csv under /ibex/project/c2205/AMR_dataset_peijun/country1/ folder.
 
 
 - Saudi: this dataset was not used for training and test yet due to lacking of some important features. This dataset consists of three pathogens, including PA, KP, MRSA.
@@ -51,7 +51,7 @@ To transform the EHR data into numerous features, a series of feature preprocess
 
 
 
-- Dubai dataset preprocessing: 
+- country1 dataset preprocessing: 
     1. merge general data with antibioticsIP and antibioticsOP based on PT_NO
     2. merge antibiotics with microculture, based on PT_NO as well as SPECIMEN_DATE_COLLECTED(microculture) and Date (antibiotics) (within 10day)
     3. merge speciman_request, diagnosis, problem_list, admission_diagnosis and clinical_diagnosis as additional_note
@@ -63,7 +63,7 @@ To transform the EHR data into numerous features, a series of feature preprocess
 
         - based on the last 90 day drug usages, derive the previous antibiotics exposure
 
-        - the result was saved in dubai_NER_6atb_merge_history_and_notes_version2.csv
+        - the result was saved in country1_NER_6atb_merge_history_and_notes_version2.csv
 
 - Saudi dataset preprocessing: 
 
@@ -78,7 +78,7 @@ To transform the EHR data into numerous features, a series of feature preprocess
     - the codes were stored under data/data_explore/saudi_pa_Oct_8_final_merge.py
 
 
-- Dataset merging: comman features in US and dubai dataset and corresponding discriptions are recorded in AMR_Prediction/final_feature_description.xlsx
+- Dataset merging: comman features in US and country1 dataset and corresponding discriptions are recorded in AMR_Prediction/final_feature_description.xlsx
 
 - Standardizing organism_name and converting into one-hot: there are various organism recorded in the dataset. In order to transform this feature into numerical vector, we only extracted eskape pathogens and created another column named. The codes were stored in AMR_Prediction/data_processing_final/process_organism_name.py
 
@@ -103,8 +103,8 @@ To transform the EHR data into numerous features, a series of feature preprocess
 ## Model Training
 Used the merged dataset to rrain XGBoost and LR models. The codes were stored in AMR_Prediction/model_prediction_final/model_training.py and the model parameters are saved in AMR_Prediction/model_prediction_final/model_Ours_Oct_5
 
-- Models trained on dubai:  only use dubai dataset to train the models. The codes were stored in AMR_Prediction/model_prediction_final/model_training_us_dubai.py and the trained models were in AMR_Prediction/model_prediction_final/model_Ours_Dubai_Oct_5. 
-    - Notes: in dubai dataset, there is not model for sulfamethoxazole resistance prediction since the dataset lacks of corresponding sulfamethoxazole AST records.
+- Models trained on country1:  only use country1 dataset to train the models. The codes were stored in AMR_Prediction/model_prediction_final/model_training_us_country1.py and the trained models were in AMR_Prediction/model_prediction_final/model_Ours_country1_Oct_5. 
+    - Notes: in country1 dataset, there is not model for sulfamethoxazole resistance prediction since the dataset lacks of corresponding sulfamethoxazole AST records.
 
 
 - Models trained on us: only use AMR_UTI (us) dataset to train the models. The codes were stored in AMR_Prediction/model_prediction_final/model_training_us.py and the trained models were in AMR_Prediction/model_prediction_final/model_Ours_US_Oct_5
@@ -116,11 +116,11 @@ Used the merged dataset to rrain XGBoost and LR models. The codes were stored in
 
 1. In order to explore the generalization ability of the trained models. We have tried to train models on one dataset and test on another.
 
-    - Trained on Dubai test on Us: the codes were stored in AMR_Prediction/sensetivity_ana/load_Dubai_test_Us.py
+    - Trained on country1 test on Us: the codes were stored in AMR_Prediction/sensetivity_ana/load_country1_test_Us.py
 
-    - Trained on Us and test on Dubai: the codes were stored in AMR_Prediction/sensetivity_ana/load_US_test_Dubai.py
+    - Trained on Us and test on country1: the codes were stored in AMR_Prediction/sensetivity_ana/load_US_test_country1.py
 
-2. We also try to explore the impact of diversity and size of training dataset on the models' performance. The implementation logic is to control the ratio of us and dubai datasets. The codes was stored in AMR_Prediction/sensetivity_ana/run_LR_XGBoost_with_ratio_error.py
+2. We also try to explore the impact of diversity and size of training dataset on the models' performance. The implementation logic is to control the ratio of us and country1 datasets. The codes was stored in AMR_Prediction/sensetivity_ana/run_LR_XGBoost_with_ratio_error.py
 
 3. To explore the impact of balanced and unbalanced dataset on the models' performance, we train and test the models before and after oversampling. 
 

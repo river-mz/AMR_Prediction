@@ -20,13 +20,13 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import auc
 
 # Set up argument parsing
-parser = argparse.ArgumentParser(description='Process US and Dubai data ratios.')
+parser = argparse.ArgumentParser(description='Process US and country1 data ratios.')
 parser.add_argument('--us_r', type=float, default=0.5, help='Proportion of US data to sample (0 to 1)')
-parser.add_argument('--dubai_r', type=float, default=0.5, help='Proportion of Dubai data to sample (0 to 1)')
+parser.add_argument('--country1_r', type=float, default=0.5, help='Proportion of country1 data to sample (0 to 1)')
 args = parser.parse_args()
 
 print("us ratio:", args.us_r)
-print("dubai ratio:", args.dubai_r)
+print("country1 ratio:", args.country1_r)
 
 use_cols = ['age', 'race', 'veteran', 'gender', 'BMI', 'previous_antibiotic_exposure_cephalosporin',
        'previous_antibiotic_exposure_carbapenem',
@@ -67,13 +67,13 @@ final_df = pd.read_csv('/ibex/project/c2205/AMR_dataset_peijun/integrate/final_n
                         usecols=use_cols)
 # Sample data based on command-line arguments
 us_sample_size = int(len(final_df[final_df['source'] == 'US']) * args.us_r)
-dubai_sample_size = int(len(final_df[final_df['source'] == 'DUBAI']) * args.dubai_r)
+country1_sample_size = int(len(final_df[final_df['source'] == 'country1']) * args.country1_r)
 
 us_data = final_df[final_df['source'] == 'US'].sample(n=us_sample_size, random_state=42)
-dubai_data = final_df[final_df['source'] == 'DUBAI'].sample(n=dubai_sample_size, random_state=42)
+country1_data = final_df[final_df['source'] == 'country1'].sample(n=country1_sample_size, random_state=42)
 
 # Concatenate sampled data
-final_df = pd.concat([us_data, dubai_data], ignore_index=True)
+final_df = pd.concat([us_data, country1_data], ignore_index=True)
 
 # Prepare features
 features = final_df.drop(columns=['source', 'resistance_nitrofurantoin',
